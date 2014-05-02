@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!-- An ultra simple Mapnik stylesheet -->
+
+<!DOCTYPE Map [
+<!ENTITY google_mercator "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+]>
+
+<Map srs="&google_mercator;">
+  <Style name="style">
+
+     <Rule>
+      <Filter>[AREA] &gt; -1 and [AREA] &lt; 500000</Filter>
+      <PolygonSymbolizer fill="#eeeeee"/>
+      <LineSymbolizer stroke="black" stroke-width=".1"/>
+     </Rule>
+
+     <Rule>
+      <Filter>[AREA] &gt;= 500000 and [AREA] &lt; 1000000</Filter>
+      <PolygonSymbolizer fill="#bbbbbb"/>
+     </Rule>
+
+     <Rule>
+      <Filter>[AREA] &gt;= 1000000 and [AREA] &lt; 1500000</Filter>
+      <PolygonSymbolizer fill="#999999"/>
+     </Rule>
+
+     <Rule>
+      <Filter>[AREA] &gt;= 1500000</Filter>
+      <PolygonSymbolizer fill="#333333"/>
+     </Rule>
+
+   </Style>
+
+    <Layer name="layer" srs="&google_mercator;">
+        <StyleName>style</StyleName>
+        <Datasource>
+            <Parameter name="type">shape</Parameter>
+            <Parameter name="file">map/world_merc.shp</Parameter>
+        </Datasource>
+    </Layer>
+</Map>
