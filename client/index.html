@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+<script src="https://rawgit.com/danzel/Leaflet.utfgrid/master/dist/leaflet.utfgrid.js"></script>
+</head>
+<body>
+<div id="map" style="height: 800px"></div>
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 5);
+    L.tileLayer('http://localhost:7890/osm_world/{z}/{x}/{y}.png', {}).addTo(map);
+    L.tileLayer('http://localhost:7890/world/{z}/{x}/{y}.png', {}).addTo(map);
+    var utfGrid = new L.UtfGrid('http://localhost:7890/world_utfgrid/{z}/{x}/{y}.json?callback={cb}');
+    map.addLayer(utfGrid);
+    utfGrid.on('mouseover', function (e) {
+        console.log('mouseover: ', e.data);
+    });
+    utfGrid.on('mouseout', function (e) {
+        console.log('mouseout: ', e.data);
+    });
+</script>
+</body>
+</html>
